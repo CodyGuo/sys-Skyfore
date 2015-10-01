@@ -9,7 +9,7 @@ package sys
 var User32 *DLLClass
 
 func init() {
-	User32 = Dll("User32.dll")
+    User32 = Dll("User32.dll")
 }
 
 /*
