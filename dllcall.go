@@ -39,6 +39,7 @@ func MustGetProcAddress(lib uintptr, name string) uintptr {
 func Dll(dllName string) *DLLClass {
     DllCls := &DLLClass{}
     DllCls.Handle = MustLoadLibrary(dllName)
+
     return DllCls
 }
 
@@ -64,16 +65,19 @@ func (dllCls *DLLClass) Call(apiName interface{}, argvs ...uintptr) uintptr {
         for k, v := range argvs {
             cArgs[k] = v
         }
+
         apiRet, _, _ := syscall.Syscall(apiFunc, nArgvs,
             cArgs[0],
             cArgs[1],
             cArgs[2])
+
         return apiRet
     } else if nArgvs <= 6 {
         cArgs := []uintptr{0, 0, 0, 0, 0, 0}
         for k, v := range argvs {
             cArgs[k] = v
         }
+
         apiRet, _, _ := syscall.Syscall6(apiFunc, nArgvs,
             cArgs[0],
             cArgs[1],
@@ -81,12 +85,14 @@ func (dllCls *DLLClass) Call(apiName interface{}, argvs ...uintptr) uintptr {
             cArgs[3],
             cArgs[4],
             cArgs[5])
+
         return apiRet
     } else if nArgvs <= 9 {
         cArgs := []uintptr{0, 0, 0, 0, 0, 0, 0, 0, 0}
         for k, v := range argvs {
             cArgs[k] = v
         }
+
         apiRet, _, _ := syscall.Syscall9(apiFunc, nArgvs,
             cArgs[0],
             cArgs[1],
@@ -97,12 +103,14 @@ func (dllCls *DLLClass) Call(apiName interface{}, argvs ...uintptr) uintptr {
             cArgs[6],
             cArgs[7],
             cArgs[8])
+
         return apiRet
     } else if nArgvs <= 12 {
         cArgs := []uintptr{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
         for k, v := range argvs {
             cArgs[k] = v
         }
+
         apiRet, _, _ := syscall.Syscall12(apiFunc, nArgvs,
             cArgs[0],
             cArgs[1],
@@ -116,12 +124,14 @@ func (dllCls *DLLClass) Call(apiName interface{}, argvs ...uintptr) uintptr {
             cArgs[9],
             cArgs[10],
             cArgs[11])
+
         return apiRet
     } else if nArgvs <= 15 {
         cArgs := []uintptr{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
         for k, v := range argvs {
             cArgs[k] = v
         }
+
         apiRet, _, _ := syscall.Syscall15(apiFunc, nArgvs,
             cArgs[0],
             cArgs[1],
@@ -138,6 +148,7 @@ func (dllCls *DLLClass) Call(apiName interface{}, argvs ...uintptr) uintptr {
             cArgs[12],
             cArgs[13],
             cArgs[14])
+
         return apiRet
     } else {
         panic("Function < " + apiName.(string) + " > Call too many parameters.")
